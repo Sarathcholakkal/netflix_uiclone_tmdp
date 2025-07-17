@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/movie_modal.dart';
+import 'package:netflix_uiclone/models/nowplaying_model.dart';
 
 class PageViewCardWidget extends StatelessWidget {
   const PageViewCardWidget({super.key, required this.movieData});

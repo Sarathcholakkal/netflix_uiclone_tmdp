@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/movie_modal.dart';
+import 'package:netflix_uiclone/models/nowplaying_model.dart';
+import 'package:netflix_uiclone/models/upcomming_model.dart';
 
 var key = "?api_key=$apiKey";
 
@@ -13,7 +14,7 @@ class ApiServices {
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        return movieFromJson(response.body);
+        return upcommingMovieFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -25,13 +26,13 @@ class ApiServices {
 
   //upcomming movies
 
-  Future<Movie?> fetchMovies() async {
+  Future<UpcommingMovies?> fetchupcommingMovie() async {
     try {
-      const endPoint = "movie/now_playing";
+      const endPoint = "movie/upcoming";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        return movieFromJson(response.body);
+        return upcommingMoviesFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
