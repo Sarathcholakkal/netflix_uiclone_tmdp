@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:netflix_uiclone/models/nowplaying_model.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/upcomming_model.dart';
 
-class MovieSection extends StatelessWidget {
-  final Future<UpcommingMovies?> movieData;
+class HorizondalListViewSection extends StatelessWidget {
+  final Future movieData;
   final String title;
   final bool isReverse;
 
-  const MovieSection({
+  const HorizondalListViewSection({
     super.key,
     required this.movieData,
     required this.title,
@@ -37,7 +35,7 @@ class MovieSection extends StatelessWidget {
           SizedBox(
             height: 180,
             width: double.infinity,
-            child: FutureBuilder<UpcommingMovies?>(
+            child: FutureBuilder(
               future: movieData,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
