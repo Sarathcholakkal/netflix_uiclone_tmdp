@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:netflix_uiclone/common/utils.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/movie_detailed_screen.dart';
 
 class HorizondalListViewSection extends StatelessWidget {
   final Future movieData;
@@ -53,7 +54,14 @@ class HorizondalListViewSection extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MovieDetailedScreen(movieId: movie.id),
+                              ),
+                            );
+                          },
                           child: Container(
                             width: 130,
                             decoration: BoxDecoration(

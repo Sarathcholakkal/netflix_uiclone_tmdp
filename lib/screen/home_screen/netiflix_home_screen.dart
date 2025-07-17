@@ -71,6 +71,14 @@ class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
               movieData: upcomingMovies,
               title: 'Upcoming Movies',
             ),
+            HorizondalListViewSection(
+              movieData: popularTVseries,
+              title: 'Popular TV Series -Most -Watch For You',
+            ),
+            HorizondalListViewSection(
+              movieData: topRatedMovies,
+              title: 'Top Rated Movies',
+            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:netflix_uiclone/common/utils.dart';
+import 'package:netflix_uiclone/models/movie_details_model.dart';
 import 'package:netflix_uiclone/models/nowplaying_model.dart';
 import 'package:netflix_uiclone/models/popular_tvseries_model.dart';
 import 'package:netflix_uiclone/models/toprated_model.dart';
@@ -89,6 +90,23 @@ class ApiServices {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         return popularTvSeriesFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+
+  //movie details page
+  Future<MovieDetails?> fetchMovieDetails(int movieId) async {
+    try {
+      final endPoint = "movie/$movieId";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return movieDetailsFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
