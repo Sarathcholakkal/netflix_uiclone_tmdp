@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_uiclone/screen/search_sreen/seach_screen.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -12,7 +13,12 @@ class CustomAppBar extends StatelessWidget {
           Image.asset("assets/log.png", height: 50),
           Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchScreen()),
+              );
+            },
             icon: Icon(Icons.search, size: 27, color: Colors.white),
           ),
           Icon(Icons.download_sharp, size: 27, color: Colors.white),

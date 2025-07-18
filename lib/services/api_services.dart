@@ -140,7 +140,13 @@ class ApiServices {
     try {
       final endPoint = "search/movie?query=$query";
       final apiUrl = "$baseUrl$endPoint";
-      final response = await http.get(Uri.parse(apiUrl));
+      final response = await http.get(
+        Uri.parse(apiUrl),
+        headers: {
+          "Authorization":
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGMxZWU5N2NhMWUzMjQwNjhmODdlNWEyYzRiYTc4YyIsIm5iZiI6MTcwMTEzNTAyMy45ODU5OTk4LCJzdWIiOiI2NTY1NDJhZmE4YjJjYTAxMGJjMGI0NWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fzSqaU_4IkXq7mb2KUYbaFXy6PcMvY0sKzTcksr9KfI ",
+        },
+      );
       if (response.statusCode == 200) {
         return searchMovieFromJson(response.body);
       } else {
@@ -152,3 +158,9 @@ class ApiServices {
     }
   }
 }
+
+
+// curl --request GET \
+//      --url 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1' \
+//      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGMxZWU5N2NhMWUzMjQwNjhmODdlNWEyYzRiYTc4YyIsIm5iZiI6MTcwMTEzNTAyMy45ODU5OTk4LCJzdWIiOiI2NTY1NDJhZmE4YjJjYTAxMGJjMGI0NWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fzSqaU_4IkXq7mb2KUYbaFXy6PcMvY0sKzTcksr9KfI' \
+//      --header 'accept: application/json'

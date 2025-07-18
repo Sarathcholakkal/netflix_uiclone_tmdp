@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/screen/splash_screen.dart';
+import 'package:netflix_uiclone/screen/common_screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
