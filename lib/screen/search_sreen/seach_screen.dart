@@ -16,7 +16,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   ApiServices apiServices = ApiServices();
   TextEditingController searchController = TextEditingController();
-  late Future<TrendingNetflix?> trendingMovies;
+  late Future<TrendingNetflix?> trendingonNetflix;
   SearchMovie? searchMovie;
   void search(String query) {
     apiServices.fetchseachedmovie(query).then((result) {
@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    trendingMovies = apiServices.fetchTrendinNetflix();
+    trendingonNetflix = apiServices.fetchTrendinNetflix();
     super.initState();
   }
 
@@ -72,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
 
             searchController.text.isEmpty
-                ? DefaultResult(trendingMovie: trendingMovies)
+                ? DefaultResult(trendingMovie: trendingonNetflix)
                 : searchMovie == null
                 ? SizedBox.shrink()
                 : SearchResultWidget(searchMovie: searchMovie),

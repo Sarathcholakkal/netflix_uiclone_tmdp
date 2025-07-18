@@ -162,21 +162,21 @@ class ApiServices {
 
   //hot and news
 
-  // Future<HotNews?> fetchHotNews() async {
-  //   try {
-  //     const endPoint = "tv/popular";
-  //     final apiUrl = "$baseUrl$endPoint$key";
-  //     final response = await http.get(Uri.parse(apiUrl));
-  //     if (response.statusCode == 200) {
-  //       return hotNewsFromJson(response.body);
-  //     } else {
-  //       throw Exception("Failed to load movies");
-  //     }
-  //   } catch (e) {
-  //     print("Error fecthing movies:$e");
-  //     return null;
-  //   }
-  // }
+  Future<HotNews?> fetchHotNews() async {
+    try {
+      const endPoint = "trending/all/day";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return hotNewsFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
 }
 
 

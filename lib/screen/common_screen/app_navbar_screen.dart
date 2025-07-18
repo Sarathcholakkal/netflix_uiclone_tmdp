@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:netflix_uiclone/screen/home_screen/netiflix_home_screen.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_screen.dart';
 import 'package:netflix_uiclone/screen/search_sreen/seach_screen.dart';
 
 class AppNavbarScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class AppNavbarScreen extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: [NetiflixHomeScreen(), SearchScreen(), Scaffold()],
+          children: [NetiflixHomeScreen(), SearchScreen(), HotNewsScreen()],
         ),
       ),
     );
