@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/models/nowplaying_model.dart';
 import 'package:netflix_uiclone/models/popular_tvseries_model.dart';
 import 'package:netflix_uiclone/models/toprated_model.dart';
-import 'package:netflix_uiclone/models/trending_model.dart';
+import 'package:netflix_uiclone/models/trending_netflix.dart';
 import 'package:netflix_uiclone/models/upcomming_model.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_widgets/custom_appbar.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_widgets/listview_widget.dart';
@@ -23,7 +23,7 @@ class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
   late Future<Movie?> movieData;
   late Future<UpcommingMovies?> upcomingMovies;
   late Future<TopRatedMovies?> topRatedMovies;
-  late Future<TrendingMovies?> trendingMovies;
+  late Future<TrendingNetflix?> trendingMovies;
   late Future<PopularTvSeries?> popularTVseries;
 
   @override
@@ -31,7 +31,7 @@ class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
     movieData = apiServices.fetchMovies();
     upcomingMovies = apiServices.fetchupcommingMovie();
     topRatedMovies = apiServices.fetchTopRatedMovies();
-    trendingMovies = apiServices.fetchTrendingMovies();
+    trendingMovies = apiServices.fetchTrendinNetflix();
     popularTVseries = apiServices.fetchPopualrTvseries();
     super.initState();
   }

@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/trending_model.dart';
+import 'package:netflix_uiclone/models/trending_netflix.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/movie_detailed_screen.dart';
 
 class DefaultResult extends StatelessWidget {
   const DefaultResult({super.key, required this.trendingMovie});
 
-  final Future<TrendingMovies?> trendingMovie;
+  final Future<TrendingNetflix?> trendingMovie;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<TrendingMovies?>(
+    return FutureBuilder<TrendingNetflix?>(
       future: trendingMovie,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

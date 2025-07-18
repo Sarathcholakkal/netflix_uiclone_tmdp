@@ -1,6 +1,5 @@
-// import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:flutter/material.dart';
-// import 'package:netflix_uiclone/models/hot_trending_model.dart';
+// import 'package:netflix_uiclone/models/hot_news_model.dart';
 // import 'package:netflix_uiclone/screen/movie_details_screen/movie_detailed_screen.dart';
 // import 'package:netflix_uiclone/services/api_services.dart';
 
@@ -13,9 +12,9 @@
 
 // class _HotNewsScreenState extends State<HotNewsScreen> {
 //   final ApiServices apiServices = ApiServices();
-//   late Future<HotTrending?> hotTrending;
+//   late Future<HotNews?> hotTrending;
 //   void initState() {
-//     hotTrending = apiServices.fetchHotTrending();
+//     hotTrending = apiServices.fetchHotNews();
 //     super.initState();
 //   }
 

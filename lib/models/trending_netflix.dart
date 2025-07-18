@@ -1,33 +1,37 @@
 // To parse this JSON data, do
 //
-//     final trendingMovies = trendingMoviesFromJson(jsonString);
+//     final trendingNetflix = trendingNetflixFromJson(jsonString);
 
 import 'dart:convert';
 
-TrendingMovies trendingMoviesFromJson(String str) =>
-    TrendingMovies.fromJson(json.decode(str));
+TrendingNetflix trendingNetflixFromJson(String str) =>
+    TrendingNetflix.fromJson(json.decode(str));
 
-String trendingMoviesToJson(TrendingMovies data) => json.encode(data.toJson());
+String trendingNetflixToJson(TrendingNetflix data) =>
+    json.encode(data.toJson());
 
-class TrendingMovies {
+class TrendingNetflix {
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  TrendingMovies({
+  TrendingNetflix({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory TrendingMovies.fromJson(Map<String, dynamic> json) => TrendingMovies(
-    page: json["page"],
-    results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-    totalPages: json["total_pages"],
-    totalResults: json["total_results"],
-  );
+  factory TrendingNetflix.fromJson(Map<String, dynamic> json) =>
+      TrendingNetflix(
+        page: json["page"],
+        results: List<Result>.from(
+          json["results"].map((x) => Result.fromJson(x)),
+        ),
+        totalPages: json["total_pages"],
+        totalResults: json["total_results"],
+      );
 
   Map<String, dynamic> toJson() => {
     "page": page,

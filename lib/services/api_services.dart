@@ -1,12 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'package:netflix_uiclone/common/utils.dart';
+import 'package:netflix_uiclone/models/hot_news_model.dart';
 import 'package:netflix_uiclone/models/movie_details_model.dart';
 import 'package:netflix_uiclone/models/movie_recommadation_model.dart';
 import 'package:netflix_uiclone/models/nowplaying_model.dart';
 import 'package:netflix_uiclone/models/popular_tvseries_model.dart';
 import 'package:netflix_uiclone/models/search_movie.dart';
 import 'package:netflix_uiclone/models/toprated_model.dart';
-import 'package:netflix_uiclone/models/trending_model.dart';
+import 'package:netflix_uiclone/models/trending_netflix.dart';
 import 'package:netflix_uiclone/models/upcomming_model.dart';
 
 var key = "?api_key=$apiKey";
@@ -50,14 +51,14 @@ class ApiServices {
 
   //trending movies
 
-  Future<TrendingMovies?> fetchTrendingMovies() async {
+  Future<TrendingNetflix?> fetchTrendinNetflix() async {
     try {
       const endPoint = "trending/movie/day";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       print(response.body);
       if (response.statusCode == 200) {
-        return trendingMoviesFromJson(response.body);
+        return trendingNetflixFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -158,6 +159,24 @@ class ApiServices {
       return null;
     }
   }
+
+  //hot and news
+
+  // Future<HotNews?> fetchHotNews() async {
+  //   try {
+  //     const endPoint = "tv/popular";
+  //     final apiUrl = "$baseUrl$endPoint$key";
+  //     final response = await http.get(Uri.parse(apiUrl));
+  //     if (response.statusCode == 200) {
+  //       return hotNewsFromJson(response.body);
+  //     } else {
+  //       throw Exception("Failed to load movies");
+  //     }
+  //   } catch (e) {
+  //     print("Error fecthing movies:$e");
+  //     return null;
+  //   }
+  // }
 }
 
 
