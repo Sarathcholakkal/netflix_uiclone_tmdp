@@ -13,8 +13,13 @@ import 'package:netflix_uiclone/models/upcomming_model.dart';
 var key = "?api_key=$apiKey";
 
 class ApiServices {
-  // now plaing movies
+  ApiServices._privateConstructor();
 
+  static final ApiServices _instance = ApiServices._privateConstructor();
+
+  static ApiServices get instance => _instance;
+
+  // now playing movies
   Future<Movie?> fetchMovies() async {
     try {
       const endPoint = "movie/now_playing";
@@ -31,8 +36,7 @@ class ApiServices {
     }
   }
 
-  //upcoming movies
-
+  // upcoming movies
   Future<UpcommingMovies?> fetchupcommingMovie() async {
     try {
       const endPoint = "movie/upcoming";
@@ -49,8 +53,7 @@ class ApiServices {
     }
   }
 
-  //trending movies
-
+  // trending movies
   Future<TrendingNetflix?> fetchTrendinNetflix() async {
     try {
       const endPoint = "trending/movie/day";
@@ -68,7 +71,7 @@ class ApiServices {
     }
   }
 
-  //toprated movies
+  // top rated movies
   Future<TopRatedMovies?> fetchTopRatedMovies() async {
     try {
       const endPoint = "movie/top_rated";
@@ -85,8 +88,7 @@ class ApiServices {
     }
   }
 
-  //popular tv series
-
+  // popular TV series
   Future<PopularTvSeries?> fetchPopualrTvseries() async {
     try {
       const endPoint = "tv/popular";
@@ -103,7 +105,7 @@ class ApiServices {
     }
   }
 
-  //movie details page
+  // movie details
   Future<MovieDetails?> fetchMovieDetails(int movieId) async {
     try {
       final endPoint = "movie/$movieId";
@@ -119,8 +121,8 @@ class ApiServices {
       return null;
     }
   }
-  //movie recommedation
 
+  // movie recommendation
   Future<MovieRecommedations?> fetchMovieRecommedation(int movieId) async {
     try {
       final endPoint = "movie/$movieId/recommendations";
@@ -137,7 +139,7 @@ class ApiServices {
     }
   }
 
-  // searhc movie
+  // search movie
   Future<SearchMovie?> fetchseachedmovie(String query) async {
     try {
       final endPoint = "search/movie?query=$query";
@@ -146,7 +148,7 @@ class ApiServices {
         Uri.parse(apiUrl),
         headers: {
           "Authorization":
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGMxZWU5N2NhMWUzMjQwNjhmODdlNWEyYzRiYTc4YyIsIm5iZiI6MTcwMTEzNTAyMy45ODU5OTk4LCJzdWIiOiI2NTY1NDJhZmE4YjJjYTAxMGJjMGI0NWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fzSqaU_4IkXq7mb2KUYbaFXy6PcMvY0sKzTcksr9KfI ",
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGMxZWU5N2NhMWUzMjQwNjhmODdlNWEyYzRiYTc4YyIsIm5iZiI6MTcwMTEzNTAyMy45ODU5OTk4LCJzdWIiOiI2NTY1NDJhZmE4YjJjYTAxMGJjMGI0NWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fzSqaU_4IkXq7mb2KUYbaFXy6PcMvY0sKzTcksr9KfI",
         },
       );
       if (response.statusCode == 200) {
@@ -160,8 +162,7 @@ class ApiServices {
     }
   }
 
-  //hot and news
-
+  // hot and news
   Future<HotNews?> fetchHotNews() async {
     try {
       const endPoint = "trending/all/day";
@@ -178,9 +179,3 @@ class ApiServices {
     }
   }
 }
-
-
-// curl --request GET \
-//      --url 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1' \
-//      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NGMxZWU5N2NhMWUzMjQwNjhmODdlNWEyYzRiYTc4YyIsIm5iZiI6MTcwMTEzNTAyMy45ODU5OTk4LCJzdWIiOiI2NTY1NDJhZmE4YjJjYTAxMGJjMGI0NWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fzSqaU_4IkXq7mb2KUYbaFXy6PcMvY0sKzTcksr9KfI' \
-//      --header 'accept: application/json'

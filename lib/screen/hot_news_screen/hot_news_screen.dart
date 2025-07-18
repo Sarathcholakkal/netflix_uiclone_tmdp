@@ -11,7 +11,8 @@ class HotNewsScreen extends StatefulWidget {
 }
 
 class _HotNewsScreenState extends State<HotNewsScreen> {
-  final ApiServices apiServices = ApiServices();
+  // final ApiServices apiServices = ApiServices();
+  final apiServices = ApiServices.instance;
   late Future<HotNews?> hotnews;
 
   @override

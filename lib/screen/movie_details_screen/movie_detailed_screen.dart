@@ -18,7 +18,8 @@ class MovieDetailedScreen extends StatefulWidget {
 }
 
 class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
-  final ApiServices apiServices = ApiServices();
+  // final ApiServices apiServices = ApiServices();
+  final apiServices = ApiServices.instance;
   late Future<MovieDetails?> movieDetail;
   late Future<MovieRecommedations?> movieRecommendation;
   @override

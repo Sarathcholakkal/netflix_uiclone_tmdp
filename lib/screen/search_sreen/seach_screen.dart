@@ -14,7 +14,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  ApiServices apiServices = ApiServices();
+  // ApiServices apiServices = ApiServices();
+  final apiServices = ApiServices.instance;
   TextEditingController searchController = TextEditingController();
   late Future<TrendingNetflix?> trendingonNetflix;
   SearchMovie? searchMovie;

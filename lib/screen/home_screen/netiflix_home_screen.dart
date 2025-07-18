@@ -20,7 +20,8 @@ class NetiflixHomeScreen extends StatefulWidget {
 
 class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  final ApiServices apiServices = ApiServices();
+  // final ApiServices apiServices = ApiServices();
+  final apiServices = ApiServices.instance;
   late Future<Movie?> movieData;
   late Future<UpcommingMovies?> upcomingMovies;
   late Future<TopRatedMovies?> topRatedMovies;
