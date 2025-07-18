@@ -19,6 +19,7 @@ class NetiflixHomeScreen extends StatefulWidget {
 }
 
 class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
+  final ScrollController _scrollController = ScrollController();
   final ApiServices apiServices = ApiServices();
   late Future<Movie?> movieData;
   late Future<UpcommingMovies?> upcomingMovies;
@@ -41,12 +42,30 @@ class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 50),
             CustomAppBar(),
-            TitleBarWidget(),
+            TitleBarWidget(
+              onPressedbuttonOne: () {
+                _scrollController.animateTo(
+                  700,
+                  duration: Duration(microseconds: 100),
+                  curve: Curves.bounceIn,
+                );
+              },
+              onPressedbuttonTwo: () {
+                _scrollController.animateTo(
+                  300,
+                  duration: Duration(microseconds: 100),
+                  curve: Curves.bounceIn,
+                );
+              },
+              onPressedbuttonThree: () {},
+            ),
+
             SizedBox(height: 10),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
