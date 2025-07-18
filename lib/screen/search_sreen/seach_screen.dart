@@ -42,6 +42,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CupertinoSearchTextField(
               controller: searchController,
@@ -57,7 +58,19 @@ class _SearchScreenState extends State<SearchScreen> {
                 }
               },
             ),
-            SizedBox(height: 10),
+
+            Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 5, left: 5),
+              child: Text(
+                "Top Search",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+
             searchController.text.isEmpty
                 ? DefaultResult(trendingMovie: trendingMovies)
                 : searchMovie == null

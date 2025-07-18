@@ -44,12 +44,22 @@ class SearchResultWidget extends StatelessWidget {
                               imageUrl: "$imageUrl${search.backdropPath}",
                               fit: BoxFit.contain,
                               height: 180,
+                              placeholder: (context, url) => Container(
+                                height: 90,
+                                width: 160,
+                                color: Colors.grey.shade800,
+                                child: const Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(width: 20),
                             Flexible(
                               child: Text(
                                 search.title,
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -65,7 +75,7 @@ class SearchResultWidget extends StatelessWidget {
                   ),
                   Positioned(
                     top: 35,
-                    left: 72,
+                    left: 70,
                     child: Icon(
                       Icons.play_circle_outline,
                       color: Colors.white,

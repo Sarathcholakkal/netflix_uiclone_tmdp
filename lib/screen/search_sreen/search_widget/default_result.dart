@@ -61,6 +61,16 @@ class DefaultResult extends StatelessWidget {
                                       "$imageUrl${defaultResult.backdropPath}",
                                   fit: BoxFit.contain,
                                   height: 180,
+                                  placeholder: (context, url) => Container(
+                                    height: 90,
+                                    width: 160,
+                                    color: Colors.grey.shade800,
+                                    child: const Center(
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(width: 20),
                                 Flexible(
