@@ -2,8 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
 import 'package:netflix_uiclone/models/movie_details_model.dart';
+import 'package:netflix_uiclone/models/movie_recommadation_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/movie_description_widget.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/movie_details_poster.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/movie_details_title.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/wideelevated_button.dart';
 import 'package:netflix_uiclone/services/api_services.dart';
 
 class MovieDetailedScreen extends StatefulWidget {
@@ -17,6 +20,7 @@ class MovieDetailedScreen extends StatefulWidget {
 class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
   final ApiServices apiServices = ApiServices();
   late Future<MovieDetails?> movieDetail;
+  late Future<MovieRecommedations?> movieRecommendation;
   @override
   void initState() {
     fetchMovieData();
@@ -25,6 +29,8 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
 
   fetchMovieData() {
     movieDetail = apiServices.fetchMovieDetails(widget.movieId);
+    movieRecommendation = apiServices.fetchMovieRecommedation(widget.movieId);
+    setState(() {});
   }
 
   @override
@@ -52,6 +58,7 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
                     icon: Icons.play_arrow,
                     title: 'Play',
                   ),
+
                   SizedBox(height: 10),
                   WideElevatedButton(
                     backgroundColor: Colors.grey.shade700,
@@ -59,66 +66,79 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
                     icon: Icons.download,
                     title: 'Download',
                   ),
-                  SizedBox(height: 15),
-                  Text(
-                    genresText ?? "Nothing to dispaly",
-                    style: TextStyle(color: Colors.grey, fontSize: 17),
-                  ),
                   SizedBox(height: 10),
-                  Text(
-                    movie?.overview ?? "",
-                    maxLines: 5,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  SizedBox(
+                    child: MovieDescriptionWidget(
+                      genresText: genresText,
+                      movie: movie,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  FutureBuilder(
+                    future: movieRecommendation,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final movie = snapshot.data;
+                        return movie!.results.isEmpty
+                            ? SizedBox()
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'More Like This',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  SizedBox(
+                                    height: 200,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      padding: EdgeInsets.zero,
+                                      itemCount: movie.results.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 2,
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                "$imageUrl${movie.results[index].posterPath}",
+                                            height: 200,
+                                            width: 150,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                      }
+                      return Text("nothing to show");
+                    },
                   ),
                 ],
               );
             }
 
-            return Text('something went wrong');
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class WideElevatedButton extends StatelessWidget {
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final IconData icon;
-  final String title;
-  const WideElevatedButton({
-    super.key,
-    required this.backgroundColor,
-    required this.foregroundColor,
-    required this.icon,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-      onPressed: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 30, color: foregroundColor),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: foregroundColor,
+            return SafeArea(
+              child: Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Something went wrong, back to home',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

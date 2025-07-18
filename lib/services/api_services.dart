@@ -1,8 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:netflix_uiclone/common/utils.dart';
 import 'package:netflix_uiclone/models/movie_details_model.dart';
+import 'package:netflix_uiclone/models/movie_recommadation_model.dart';
 import 'package:netflix_uiclone/models/nowplaying_model.dart';
 import 'package:netflix_uiclone/models/popular_tvseries_model.dart';
+import 'package:netflix_uiclone/models/search_movie.dart';
 import 'package:netflix_uiclone/models/toprated_model.dart';
 import 'package:netflix_uiclone/models/trending_model.dart';
 import 'package:netflix_uiclone/models/upcomming_model.dart';
@@ -107,6 +109,40 @@ class ApiServices {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         return movieDetailsFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+  //movie recommedation
+
+  Future<MovieRecommedations?> fetchMovieRecommedation(int movieId) async {
+    try {
+      final endPoint = "movie/$movieId/recommendations";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return movieRecommedationsFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+
+  // searhc movie
+  Future<SearchMovie?> fetchseachedmovie(String query) async {
+    try {
+      final endPoint = "search/movie?query=$query";
+      final apiUrl = "$baseUrl$endPoint";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return searchMovieFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
