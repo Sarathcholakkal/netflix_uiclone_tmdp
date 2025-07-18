@@ -55,6 +55,7 @@ class ApiServices {
       const endPoint = "trending/movie/day";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
+      print(response.body);
       if (response.statusCode == 200) {
         return trendingMoviesFromJson(response.body);
       } else {

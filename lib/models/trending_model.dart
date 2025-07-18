@@ -114,11 +114,12 @@ enum MediaType { MOVIE }
 
 final mediaTypeValues = EnumValues({"movie": MediaType.MOVIE});
 
-enum OriginalLanguage { DE, EN }
+enum OriginalLanguage { DE, EN, KO }
 
 final originalLanguageValues = EnumValues({
   "de": OriginalLanguage.DE,
   "en": OriginalLanguage.EN,
+  "ko": OriginalLanguage.KO,
 });
 
 class EnumValues<T> {
