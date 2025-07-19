@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/screen/hot_news_screen/hotnews_model/hot_news_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hotnews_model/trending_today.dart';
 
 class MovieInfoSection extends StatelessWidget {
   final Result movie;

@@ -136,7 +136,7 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    'Something went wrong, back to home',
+                    'No data found, press here to back',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
