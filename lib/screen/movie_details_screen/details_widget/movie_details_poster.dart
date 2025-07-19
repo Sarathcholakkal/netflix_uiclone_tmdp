@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/movie_details_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/movie_details_model.dart';
 
 class MovieDetailsPoster extends StatelessWidget {
   const MovieDetailsPoster({

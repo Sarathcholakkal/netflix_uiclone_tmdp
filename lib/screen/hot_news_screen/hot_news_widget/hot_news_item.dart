@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:netflix_uiclone/models/hot_news_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/hot_news_model.dart';
 import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/date_section.dart';
 import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/movie_info_section.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/movie_detailed_screen.dart';

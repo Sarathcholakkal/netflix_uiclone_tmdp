@@ -4,7 +4,7 @@ class DateSection extends StatelessWidget {
   final String dayText;
   final String monthText;
 
-  const DateSection({required this.dayText, required this.monthText});
+  const DateSection({super.key, required this.dayText, required this.monthText});
 
   @override
   Widget build(BuildContext context) {

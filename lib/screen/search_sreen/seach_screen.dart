@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/models/search_movie.dart';
-import 'package:netflix_uiclone/models/trending_netflix.dart';
+import 'package:netflix_uiclone/screen/search_sreen/search_model/search_movie.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/2.trening_movies.dart';
 import 'package:netflix_uiclone/screen/search_sreen/search_widget/default_result.dart';
 import 'package:netflix_uiclone/screen/search_sreen/search_widget/search_result_widget.dart';
 import 'package:netflix_uiclone/services/api_services.dart';
@@ -17,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   // ApiServices apiServices = ApiServices();
   final apiServices = ApiServices.instance;
   TextEditingController searchController = TextEditingController();
-  late Future<TrendingNetflix?> trendingonNetflix;
+  late Future<TrendingMovies?> trendingonNetflix;
   SearchMovie? searchMovie;
   void search(String query) {
     apiServices.fetchseachedmovie(query).then((result) {
@@ -29,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    trendingonNetflix = apiServices.fetchTrendinNetflix();
+    trendingonNetflix = apiServices.fetchTrendingMovies();
     super.initState();
   }
 

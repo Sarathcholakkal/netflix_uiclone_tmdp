@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/movie_details_model.dart';
-import 'package:netflix_uiclone/models/movie_recommadation_model.dart';
-import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/movie_description_widget.dart';
-import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/movie_details_poster.dart';
-import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/movie_details_title.dart';
-import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/wideelevated_button.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/movie_details_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/recommendation_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/similar_movies.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/movie_description_widget.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/movie_details_poster.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/movie_details_title.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/wideelevated_button.dart';
 import 'package:netflix_uiclone/services/api_services.dart';
 
 class MovieDetailedScreen extends StatefulWidget {
@@ -21,7 +22,8 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
   // final ApiServices apiServices = ApiServices();
   final apiServices = ApiServices.instance;
   late Future<MovieDetails?> movieDetail;
-  late Future<MovieRecommedations?> movieRecommendation;
+  late Future<RecommandedMovies?> movieRecommendation;
+  late Future<SimilarMovies?> similarMovies;
   @override
   void initState() {
     fetchMovieData();
@@ -31,6 +33,7 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
   fetchMovieData() {
     movieDetail = apiServices.fetchMovieDetails(widget.movieId);
     movieRecommendation = apiServices.fetchMovieRecommedation(widget.movieId);
+    similarMovies = apiServices.fetchSimilarMovies(widget.movieId);
     setState(() {});
   }
 

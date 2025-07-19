@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/models/nowplaying_model.dart';
-import 'package:netflix_uiclone/models/popular_tvseries_model.dart';
-import 'package:netflix_uiclone/models/toprated_model.dart';
-import 'package:netflix_uiclone/models/trending_netflix.dart';
-import 'package:netflix_uiclone/models/upcomming_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/1.now_playing.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/6.popular_movies_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/4.popular_tvseries_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/5.toprated_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/2.trening_movies.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/3.upcoming_movies.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_widgets/custom_appbar.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_widgets/listview_widget.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_widgets/pageview_card.dart';
@@ -20,21 +21,23 @@ class NetiflixHomeScreen extends StatefulWidget {
 
 class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  // final ApiServices apiServices = ApiServices();
+
   final apiServices = ApiServices.instance;
-  late Future<Movie?> movieData;
-  late Future<UpcommingMovies?> upcomingMovies;
+  late Future<NowPlayingMovies?> nowplaying;
+  late Future<UpcomingMovies?> upcomingMovies;
   late Future<TopRatedMovies?> topRatedMovies;
-  late Future<TrendingNetflix?> trendingMovies;
+  late Future<TrendingMovies?> trendingMovies;
   late Future<PopularTvSeries?> popularTVseries;
+  late Future<PopularMovies?> popularMovies;
 
   @override
   void initState() {
-    movieData = apiServices.fetchMovies();
+    nowplaying = apiServices.fetchNowplaying();
     upcomingMovies = apiServices.fetchupcommingMovie();
     topRatedMovies = apiServices.fetchTopRatedMovies();
-    trendingMovies = apiServices.fetchTrendinNetflix();
+    trendingMovies = apiServices.fetchTrendingMovies();
     popularTVseries = apiServices.fetchPopualrTvseries();
+    popularMovies = apiServices.fetchpopularmovies();
     super.initState();
   }
 
@@ -73,7 +76,7 @@ class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  PageViewCardWidget(movieData: movieData),
+                  PageViewCardWidget(movieData: nowplaying),
                   Positioned(
                     bottom: -40,
                     left: 14,
@@ -98,6 +101,10 @@ class _NetiflixHomeScreenState extends State<NetiflixHomeScreen> {
             HorizondalListViewSection(
               movieData: topRatedMovies,
               title: 'Top Rated Movies',
+            ),
+            HorizondalListViewSection(
+              movieData: popularMovies,
+              title: 'Popular Movies',
             ),
           ],
         ),

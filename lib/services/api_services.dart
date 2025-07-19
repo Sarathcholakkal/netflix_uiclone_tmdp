@@ -1,14 +1,18 @@
 import 'package:http/http.dart' as http;
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/hot_news_model.dart';
-import 'package:netflix_uiclone/models/movie_details_model.dart';
-import 'package:netflix_uiclone/models/movie_recommadation_model.dart';
-import 'package:netflix_uiclone/models/nowplaying_model.dart';
-import 'package:netflix_uiclone/models/popular_tvseries_model.dart';
-import 'package:netflix_uiclone/models/search_movie.dart';
-import 'package:netflix_uiclone/models/toprated_model.dart';
-import 'package:netflix_uiclone/models/trending_netflix.dart';
-import 'package:netflix_uiclone/models/upcomming_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/hot_news_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/movie_details_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/recommendation_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/1.now_playing.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/6.popular_movies_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/4.popular_tvseries_model.dart';
+import 'package:netflix_uiclone/screen/search_sreen/search_model/search_movie.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/similar_movies.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/5.toprated_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/trending_all.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/2.trening_movies.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/3.upcoming_movies.dart';
+import 'dart:developer';
 
 var key = "?api_key=$apiKey";
 
@@ -19,31 +23,21 @@ class ApiServices {
 
   static ApiServices get instance => _instance;
 
+  //! home screen calls
+
   // now playing movies
-  Future<Movie?> fetchMovies() async {
+
+  //now playing
+  // used to dispaly in pageview card
+
+  //https://api.themoviedb.org/3/movie/now_playing?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+  Future<NowPlayingMovies?> fetchNowplaying() async {
     try {
       const endPoint = "movie/now_playing";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        return upcommingMovieFromJson(response.body);
-      } else {
-        throw Exception("Failed to load movies");
-      }
-    } catch (e) {
-      print("Error fecthing movies:$e");
-      return null;
-    }
-  }
-
-  // upcoming movies
-  Future<UpcommingMovies?> fetchupcommingMovie() async {
-    try {
-      const endPoint = "movie/upcoming";
-      final apiUrl = "$baseUrl$endPoint$key";
-      final response = await http.get(Uri.parse(apiUrl));
-      if (response.statusCode == 200) {
-        return upcommingMoviesFromJson(response.body);
+        return nowPlayingMoviesFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -54,14 +48,16 @@ class ApiServices {
   }
 
   // trending movies
-  Future<TrendingNetflix?> fetchTrendinNetflix() async {
+  //https://api.themoviedb.org/3/trending/movie/day?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+  //  UI it display as trending on netflix
+  Future<TrendingMovies?> fetchTrendingMovies() async {
     try {
       const endPoint = "trending/movie/day";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       print(response.body);
       if (response.statusCode == 200) {
-        return trendingNetflixFromJson(response.body);
+        return trendingMoviesFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -70,15 +66,16 @@ class ApiServices {
       return null;
     }
   }
+  //upcoming movies
+  //https://api.themoviedb.org/3/movie/upcoming?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
 
-  // top rated movies
-  Future<TopRatedMovies?> fetchTopRatedMovies() async {
+  Future<UpcomingMovies?> fetchupcommingMovie() async {
     try {
-      const endPoint = "movie/top_rated";
+      const endPoint = "movie/upcoming";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        return topRatedMoviesFromJson(response.body);
+        return upcomingMoviesFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -105,6 +102,24 @@ class ApiServices {
     }
   }
 
+  // top rated movies
+  Future<TopRatedMovies?> fetchTopRatedMovies() async {
+    try {
+      const endPoint = "movie/top_rated";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return topRatedMoviesFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+
+  //! movie details page calls..............................................
   // movie details
   Future<MovieDetails?> fetchMovieDetails(int movieId) async {
     try {
@@ -123,13 +138,14 @@ class ApiServices {
   }
 
   // movie recommendation
-  Future<MovieRecommedations?> fetchMovieRecommedation(int movieId) async {
+  //https://api.themoviedb.org/3/movie/1011477/recommendations?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+  Future<RecommandedMovies?> fetchMovieRecommedation(int movieId) async {
     try {
       final endPoint = "movie/$movieId/recommendations";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        return movieRecommedationsFromJson(response.body);
+        return recommandedMoviesFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -139,6 +155,7 @@ class ApiServices {
     }
   }
 
+  //!search movies
   // search movie
   Future<SearchMovie?> fetchseachedmovie(String query) async {
     try {
@@ -162,6 +179,8 @@ class ApiServices {
     }
   }
 
+  //! hot and news calls
+
   // hot and news
   Future<HotNews?> fetchHotNews() async {
     try {
@@ -170,6 +189,61 @@ class ApiServices {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         return hotNewsFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+  //trending all
+  //https://api.themoviedb.org/3/trending/all/day?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+
+  Future<TrendingAll?> fetchTrendingAll() async {
+    try {
+      const endPoint = "trending/all/day";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return trendingAllFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+
+  //popular movies
+  //https://api.themoviedb.org/3/movie/popular?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+
+  Future<PopularMovies?> fetchpopularmovies() async {
+    try {
+      const endPoint = "movie/popular";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return popularMoviesFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+  //similar movies
+  //https://api.themoviedb.org/3/movie/1011477/similar?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+
+  Future<SimilarMovies?> fetchSimilarMovies(int movieId) async {
+    try {
+      final endPoint = "movie/$movieId/similar";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return similarMoviesFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }

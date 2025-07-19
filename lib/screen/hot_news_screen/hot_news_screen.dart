@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/models/hot_news_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/hot_news_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/trending_all.dart';
 import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hot_news_item.dart';
 import 'package:netflix_uiclone/services/api_services.dart';
 
@@ -14,10 +15,12 @@ class _HotNewsScreenState extends State<HotNewsScreen> {
   // final ApiServices apiServices = ApiServices();
   final apiServices = ApiServices.instance;
   late Future<HotNews?> hotnews;
+  late Future<TrendingAll?> trendingAll;
 
   @override
   void initState() {
     hotnews = apiServices.fetchHotNews();
+    trendingAll = apiServices.fetchTrendingAll();
     super.initState();
   }
 
@@ -30,7 +33,7 @@ class _HotNewsScreenState extends State<HotNewsScreen> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
       ),
-      body: FutureBuilder<HotNews?>(
+      body: FutureBuilder(
         future: hotnews,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

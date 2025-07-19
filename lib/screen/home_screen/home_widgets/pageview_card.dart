@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/nowplaying_model.dart';
+import 'package:netflix_uiclone/screen/home_screen/home_models/1.now_playing.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/movie_detailed_screen.dart';
 
 class PageViewCardWidget extends StatelessWidget {
   const PageViewCardWidget({super.key, required this.movieData});
 
-  final Future<Movie?> movieData;
+  final Future<NowPlayingMovies?> movieData;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,14 @@ class PageViewCardWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final movie = movies[index];
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              MovieDetailedScreen(movieId: movie.id),
+                        ),
+                      );
+                    },
                     child: Container(
                       height: 530,
                       width: 388,

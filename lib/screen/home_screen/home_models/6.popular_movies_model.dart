@@ -1,66 +1,39 @@
 // To parse this JSON data, do
 //
-//     final upcommingMovies = upcommingMoviesFromJson(jsonString);
+//     final popularMovies = popularMoviesFromJson(jsonString);
 
 import 'dart:convert';
 
-UpcommingMovies upcommingMoviesFromJson(String str) =>
-    UpcommingMovies.fromJson(json.decode(str));
+PopularMovies popularMoviesFromJson(String str) =>
+    PopularMovies.fromJson(json.decode(str));
 
-String upcommingMoviesToJson(UpcommingMovies data) =>
-    json.encode(data.toJson());
+String popularMoviesToJson(PopularMovies data) => json.encode(data.toJson());
 
-class UpcommingMovies {
-  Dates dates;
+class PopularMovies {
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  UpcommingMovies({
-    required this.dates,
+  PopularMovies({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory UpcommingMovies.fromJson(Map<String, dynamic> json) =>
-      UpcommingMovies(
-        dates: Dates.fromJson(json["dates"]),
-        page: json["page"],
-        results: List<Result>.from(
-          json["results"].map((x) => Result.fromJson(x)),
-        ),
-        totalPages: json["total_pages"],
-        totalResults: json["total_results"],
-      );
+  factory PopularMovies.fromJson(Map<String, dynamic> json) => PopularMovies(
+    page: json["page"],
+    results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+    totalPages: json["total_pages"],
+    totalResults: json["total_results"],
+  );
 
   Map<String, dynamic> toJson() => {
-    "dates": dates.toJson(),
     "page": page,
     "results": List<dynamic>.from(results.map((x) => x.toJson())),
     "total_pages": totalPages,
     "total_results": totalResults,
-  };
-}
-
-class Dates {
-  DateTime maximum;
-  DateTime minimum;
-
-  Dates({required this.maximum, required this.minimum});
-
-  factory Dates.fromJson(Map<String, dynamic> json) => Dates(
-    maximum: DateTime.parse(json["maximum"]),
-    minimum: DateTime.parse(json["minimum"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "maximum":
-        "${maximum.year.toString().padLeft(4, '0')}-${maximum.month.toString().padLeft(2, '0')}-${maximum.day.toString().padLeft(2, '0')}",
-    "minimum":
-        "${minimum.year.toString().padLeft(4, '0')}-${minimum.month.toString().padLeft(2, '0')}-${minimum.day.toString().padLeft(2, '0')}",
   };
 }
 
@@ -133,13 +106,13 @@ class Result {
   };
 }
 
-enum OriginalLanguage { EN, JA, NO, ZH }
+enum OriginalLanguage { EN, JA, NL, TH }
 
 final originalLanguageValues = EnumValues({
   "en": OriginalLanguage.EN,
   "ja": OriginalLanguage.JA,
-  "no": OriginalLanguage.NO,
-  "zh": OriginalLanguage.ZH,
+  "nl": OriginalLanguage.NL,
+  "th": OriginalLanguage.TH,
 });
 
 class EnumValues<T> {

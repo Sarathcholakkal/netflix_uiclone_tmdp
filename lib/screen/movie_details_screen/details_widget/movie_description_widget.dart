@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/models/movie_details_model.dart';
-import 'package:netflix_uiclone/screen/movie_details_screen/movie_details_widget/icon_text_button.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/movie_details_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/icon_text_button.dart';
 
 class MovieDescriptionWidget extends StatelessWidget {
   const MovieDescriptionWidget({

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/models/search_movie.dart';
+import 'package:netflix_uiclone/screen/search_sreen/search_model/search_movie.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/movie_detailed_screen.dart';
 
 class SearchResultWidget extends StatelessWidget {
@@ -16,8 +16,8 @@ class SearchResultWidget extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemCount: searchMovie?.results.length,
-      itemBuilder: (context, Index) {
-        final search = searchMovie!.results[Index];
+      itemBuilder: (context, index) {
+        final search = searchMovie!.results[index];
         return search.backdropPath == null
             ? SizedBox()
             : Stack(

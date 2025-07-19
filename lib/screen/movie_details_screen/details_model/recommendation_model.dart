@@ -1,30 +1,30 @@
 // To parse this JSON data, do
 //
-//     final movieRecommedations = movieRecommedationsFromJson(jsonString);
+//     final recommandedMovies = recommandedMoviesFromJson(jsonString);
 
 import 'dart:convert';
 
-MovieRecommedations movieRecommedationsFromJson(String str) =>
-    MovieRecommedations.fromJson(json.decode(str));
+RecommandedMovies recommandedMoviesFromJson(String str) =>
+    RecommandedMovies.fromJson(json.decode(str));
 
-String movieRecommedationsToJson(MovieRecommedations data) =>
+String recommandedMoviesToJson(RecommandedMovies data) =>
     json.encode(data.toJson());
 
-class MovieRecommedations {
+class RecommandedMovies {
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  MovieRecommedations({
+  RecommandedMovies({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory MovieRecommedations.fromJson(Map<String, dynamic> json) =>
-      MovieRecommedations(
+  factory RecommandedMovies.fromJson(Map<String, dynamic> json) =>
+      RecommandedMovies(
         page: json["page"],
         results: List<Result>.from(
           json["results"].map((x) => Result.fromJson(x)),
@@ -43,14 +43,14 @@ class MovieRecommedations {
 
 class Result {
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   int id;
   String title;
   String originalTitle;
   String overview;
   String posterPath;
   MediaType mediaType;
-  OriginalLanguage originalLanguage;
+  String originalLanguage;
   List<int> genreIds;
   double popularity;
   DateTime releaseDate;
@@ -85,7 +85,7 @@ class Result {
     overview: json["overview"],
     posterPath: json["poster_path"],
     mediaType: mediaTypeValues.map[json["media_type"]]!,
-    originalLanguage: originalLanguageValues.map[json["original_language"]]!,
+    originalLanguage: json["original_language"],
     genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
     popularity: json["popularity"]?.toDouble(),
     releaseDate: DateTime.parse(json["release_date"]),
@@ -103,7 +103,7 @@ class Result {
     "overview": overview,
     "poster_path": posterPath,
     "media_type": mediaTypeValues.reverse[mediaType],
-    "original_language": originalLanguageValues.reverse[originalLanguage],
+    "original_language": originalLanguage,
     "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
     "popularity": popularity,
     "release_date":
@@ -117,14 +117,6 @@ class Result {
 enum MediaType { MOVIE }
 
 final mediaTypeValues = EnumValues({"movie": MediaType.MOVIE});
-
-enum OriginalLanguage { DE, EN, FR }
-
-final originalLanguageValues = EnumValues({
-  "de": OriginalLanguage.DE,
-  "en": OriginalLanguage.EN,
-  "fr": OriginalLanguage.FR,
-});
 
 class EnumValues<T> {
   Map<String, T> map;

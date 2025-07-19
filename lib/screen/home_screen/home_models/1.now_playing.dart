@@ -1,21 +1,23 @@
 // To parse this JSON data, do
 //
-//     final movie = movieFromJson(jsonString);
+//     final nowPlayingMovies = nowPlayingMoviesFromJson(jsonString);
 
 import 'dart:convert';
 
-Movie upcommingMovieFromJson(String str) => Movie.fromJson(json.decode(str));
+NowPlayingMovies nowPlayingMoviesFromJson(String str) =>
+    NowPlayingMovies.fromJson(json.decode(str));
 
-String movieToJson(Movie data) => json.encode(data.toJson());
+String nowPlayingMoviesToJson(NowPlayingMovies data) =>
+    json.encode(data.toJson());
 
-class Movie {
+class NowPlayingMovies {
   Dates dates;
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  Movie({
+  NowPlayingMovies({
     required this.dates,
     required this.page,
     required this.results,
@@ -23,13 +25,16 @@ class Movie {
     required this.totalResults,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-    dates: Dates.fromJson(json["dates"]),
-    page: json["page"],
-    results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-    totalPages: json["total_pages"],
-    totalResults: json["total_results"],
-  );
+  factory NowPlayingMovies.fromJson(Map<String, dynamic> json) =>
+      NowPlayingMovies(
+        dates: Dates.fromJson(json["dates"]),
+        page: json["page"],
+        results: List<Result>.from(
+          json["results"].map((x) => Result.fromJson(x)),
+        ),
+        totalPages: json["total_pages"],
+        totalResults: json["total_results"],
+      );
 
   Map<String, dynamic> toJson() => {
     "dates": dates.toJson(),

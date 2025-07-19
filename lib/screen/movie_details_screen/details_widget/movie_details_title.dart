@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/models/movie_details_model.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_model/movie_details_model.dart';
 
 class MovieDetailsTitle extends StatelessWidget {
   const MovieDetailsTitle({super.key, required this.movie});
