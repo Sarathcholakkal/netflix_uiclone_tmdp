@@ -7,7 +7,7 @@ import 'package:netflix_uiclone/screen/movie_details_screen/details_model/simila
 import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/movie_description_widget.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/movie_details_poster.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/movie_details_title.dart';
-import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/wideelevated_button.dart';
+import 'package:netflix_uiclone/screen/movie_details_screen/details_widget/wide_elevated_button.dart';
 import 'package:netflix_uiclone/services/api_services.dart';
 
 class MovieDetailedScreen extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/hot_news_model.dart';
-import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/trending_all.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hotnews_model/trending_today.dart';
 import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hot_news_item.dart';
 import 'package:netflix_uiclone/services/api_services.dart';
 
@@ -14,13 +13,12 @@ class HotNewsScreen extends StatefulWidget {
 class _HotNewsScreenState extends State<HotNewsScreen> {
   // final ApiServices apiServices = ApiServices();
   final apiServices = ApiServices.instance;
-  late Future<HotNews?> hotnews;
-  late Future<TrendingAll?> trendingAll;
+  late Future<TrendingToday?> trendingToday;
 
   @override
   void initState() {
-    hotnews = apiServices.fetchHotNews();
-    trendingAll = apiServices.fetchTrendingAll();
+    trendingToday = apiServices.fetchtrendingtoday();
+
     super.initState();
   }
 
@@ -34,7 +32,7 @@ class _HotNewsScreenState extends State<HotNewsScreen> {
         foregroundColor: Colors.white,
       ),
       body: FutureBuilder(
-        future: hotnews,
+        future: trendingToday,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

@@ -1,28 +1,28 @@
 // To parse this JSON data, do
 //
-//     final trendingAll = trendingAllFromJson(jsonString);
+//     final trendingToday = trendingTodayFromJson(jsonString);
 
 import 'dart:convert';
 
-TrendingAll trendingAllFromJson(String str) =>
-    TrendingAll.fromJson(json.decode(str));
+TrendingToday trendingTodayFromJson(String str) =>
+    TrendingToday.fromJson(json.decode(str));
 
-String trendingAllToJson(TrendingAll data) => json.encode(data.toJson());
+String trendingTodayToJson(TrendingToday data) => json.encode(data.toJson());
 
-class TrendingAll {
+class TrendingToday {
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  TrendingAll({
+  TrendingToday({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory TrendingAll.fromJson(Map<String, dynamic> json) => TrendingAll(
+  factory TrendingToday.fromJson(Map<String, dynamic> json) => TrendingToday(
     page: json["page"],
     results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
     totalPages: json["total_pages"],
@@ -46,7 +46,7 @@ class Result {
   String overview;
   String posterPath;
   MediaType mediaType;
-  String originalLanguage;
+  OriginalLanguage originalLanguage;
   List<int> genreIds;
   double popularity;
   DateTime? firstAirDate;
@@ -89,7 +89,7 @@ class Result {
     overview: json["overview"],
     posterPath: json["poster_path"],
     mediaType: mediaTypeValues.map[json["media_type"]]!,
-    originalLanguage: json["original_language"],
+    originalLanguage: originalLanguageValues.map[json["original_language"]]!,
     genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
     popularity: json["popularity"]?.toDouble(),
     firstAirDate: json["first_air_date"] == null
@@ -117,7 +117,7 @@ class Result {
     "overview": overview,
     "poster_path": posterPath,
     "media_type": mediaTypeValues.reverse[mediaType],
-    "original_language": originalLanguage,
+    "original_language": originalLanguageValues.reverse[originalLanguage],
     "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
     "popularity": popularity,
     "first_air_date":
@@ -140,6 +140,15 @@ enum MediaType { MOVIE, TV }
 final mediaTypeValues = EnumValues({
   "movie": MediaType.MOVIE,
   "tv": MediaType.TV,
+});
+
+enum OriginalLanguage { EN, JA, KO, PT }
+
+final originalLanguageValues = EnumValues({
+  "en": OriginalLanguage.EN,
+  "ja": OriginalLanguage.JA,
+  "ko": OriginalLanguage.KO,
+  "pt": OriginalLanguage.PT,
 });
 
 class EnumValues<T> {

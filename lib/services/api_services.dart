@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:netflix_uiclone/common/utils.dart';
-import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/hot_news_model.dart';
+import 'package:netflix_uiclone/screen/hot_news_screen/hotnews_model/trending_today.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/details_model/movie_details_model.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/details_model/recommendation_model.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_models/1.now_playing.dart';
@@ -9,10 +9,8 @@ import 'package:netflix_uiclone/screen/home_screen/home_models/4.popular_tvserie
 import 'package:netflix_uiclone/screen/search_sreen/search_model/search_movie.dart';
 import 'package:netflix_uiclone/screen/movie_details_screen/details_model/similar_movies.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_models/5.toprated_model.dart';
-import 'package:netflix_uiclone/screen/hot_news_screen/hot_news_widget/hotnews_model/trending_all.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_models/2.trening_movies.dart';
 import 'package:netflix_uiclone/screen/home_screen/home_models/3.upcoming_movies.dart';
-import 'dart:developer';
 
 var key = "?api_key=$apiKey";
 
@@ -119,6 +117,25 @@ class ApiServices {
     }
   }
 
+  //popular movies
+  //https://api.themoviedb.org/3/movie/popular?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
+
+  Future<PopularMovies?> fetchpopularmovies() async {
+    try {
+      const endPoint = "movie/popular";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        return popularMoviesFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error fecthing movies:$e");
+      return null;
+    }
+  }
+
   //! movie details page calls..............................................
   // movie details
   Future<MovieDetails?> fetchMovieDetails(int movieId) async {
@@ -181,32 +198,15 @@ class ApiServices {
 
   //! hot and news calls
 
-  // hot and news
-  Future<HotNews?> fetchHotNews() async {
-    try {
-      const endPoint = "trending/all/day";
-      final apiUrl = "$baseUrl$endPoint$key";
-      final response = await http.get(Uri.parse(apiUrl));
-      if (response.statusCode == 200) {
-        return hotNewsFromJson(response.body);
-      } else {
-        throw Exception("Failed to load movies");
-      }
-    } catch (e) {
-      print("Error fecthing movies:$e");
-      return null;
-    }
-  }
-  //trending all
+  // trending today show as hotnews in ui
   //https://api.themoviedb.org/3/trending/all/day?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
-
-  Future<TrendingAll?> fetchTrendingAll() async {
+  Future<TrendingToday?> fetchtrendingtoday() async {
     try {
       const endPoint = "trending/all/day";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        return trendingAllFromJson(response.body);
+        return trendingTodayFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
@@ -216,24 +216,6 @@ class ApiServices {
     }
   }
 
-  //popular movies
-  //https://api.themoviedb.org/3/movie/popular?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
-
-  Future<PopularMovies?> fetchpopularmovies() async {
-    try {
-      const endPoint = "movie/popular";
-      final apiUrl = "$baseUrl$endPoint$key";
-      final response = await http.get(Uri.parse(apiUrl));
-      if (response.statusCode == 200) {
-        return popularMoviesFromJson(response.body);
-      } else {
-        throw Exception("Failed to load movies");
-      }
-    } catch (e) {
-      print("Error fecthing movies:$e");
-      return null;
-    }
-  }
   //similar movies
   //https://api.themoviedb.org/3/movie/1011477/similar?api_key=64c1ee97ca1e324068f87e5a2c4ba78c
 
